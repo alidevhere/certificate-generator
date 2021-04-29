@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "certificate-generator", "certificate-generator.csproj", "{32E3C2D5-A80B-4CB2-8574-B08239AEC666}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32E3C2D5-A80B-4CB2-8574-B08239AEC666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32E3C2D5-A80B-4CB2-8574-B08239AEC666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32E3C2D5-A80B-4CB2-8574-B08239AEC666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32E3C2D5-A80B-4CB2-8574-B08239AEC666}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BED991A6-F81B-4AAB-A566-BC8D4A858647}
+	EndGlobalSection
+EndGlobal
