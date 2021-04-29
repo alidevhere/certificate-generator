@@ -29,7 +29,12 @@ namespace certificate_generator
         
         private void Form1_Load(object sender, EventArgs e)
         {
+            var f = Tools.load_file_labels(@"D:\Projects\certificate-generator\Sample\fie.csv");
 
+            foreach (Label l in f)
+            {
+                Console.WriteLine(l.Text);
+            }
         }
 
         private void load_img_btn_Click(object sender, EventArgs e)
@@ -47,29 +52,7 @@ namespace certificate_generator
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            if ( (!String.IsNullOrEmpty(txt.Text) ) && (!String.IsNullOrWhiteSpace(txt.Text) ))
-            {
-                Add_Text_Control(txt.Text);
-            }
-            else 
-            {
-                MessageBox.Show("Please Enter a valid name for text field !!!");
-            }
-            txt.Text = "";
-
-
-        }
-
-
-
+        
 
         private void MyControl_MouseDown(Object sender ,MouseEventArgs e)
         {
@@ -83,7 +66,8 @@ namespace certificate_generator
         {
             activeControl = null;
             Cursor = Cursors.Default;
-
+            Control s = sender as Control;
+            location_lbl.Text = s.Location.X + " , " + s.Location.Y;
 
         }
 
@@ -99,21 +83,43 @@ namespace certificate_generator
 
         }
 
-        private void remove_txt_Click(object sender, EventArgs e)
+        private void MyControl_Change_Font_Click(Object sender, EventArgs e)
         {
-            if (ControlsList.Count < 1)
+            FontDialog fontDlg = new FontDialog();
+            fontDlg.ShowColor = true;
+            fontDlg.ShowEffects = true;
+            fontDlg.MaxSize = 40;
+            
+            if (fontDlg.ShowDialog() != DialogResult.Cancel)
             {
-                MessageBox.Show("Nothing to remove !!");
-            }
-            else
-            {
+                MessageBox.Show(sender.ToString());
 
-                foreach (Label lbl in ControlsList)
+                MenuItem menuItem = sender as MenuItem;
+                if(menuItem != null)
                 {
-                    pictureBox1.Controls.Remove(lbl);
+                    ContextMenu contextMenu =  menuItem.GetContextMenu();
+                    Control lbl = contextMenu.SourceControl;
+                    lbl.Font = fontDlg.Font;
+                    lbl.ForeColor = fontDlg.Color;
+
                 }
-                ControlsList.Clear();
+
             }
+        }
+
+
+        private void MyControl_remove_label_Click(object sender, EventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                ContextMenu contextMenu = menuItem.GetContextMenu();
+                Control lbl = contextMenu.SourceControl;
+                pictureBox1.Controls.Remove(lbl);
+
+            }
+
+
         }
 
 
@@ -121,20 +127,12 @@ namespace certificate_generator
 
 
         //Load lables from csv file
-        private void load_file_labels(string path)
-        {
-            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(path)), true, ','))
+        
+
+
+            private void Add_labels_to_Template(string path)
             {
-                csvTable = new DataTable();
-                csvTable.Load(csvReader);
-
-            }
-        }
-
-
-
-            private void Add_Text_Control(string name)
-        {
+            /*
             Label lbl = new Label();
             lbl.Font = sample_txt.Font;
             lbl.ForeColor = sample_txt.ForeColor; 
@@ -143,21 +141,45 @@ namespace certificate_generator
             lbl.Location = new Point(30, 50);
             //myControl.Size = //new Size(50, 50);
             lbl.AutoSize = true;
-            //lbl.Font = new Font("Arial", 15);
             //lbl.Font = font;
+            */
+            Point lbl_location = new Point(30, 50);
+            ContextMenu menu = new ContextMenu();
+            //var menuItem = new MenuItem("Change Font");
+            
+            //menuItem.Click += new MouseEventHandler(MyControl_Change_Font_Click);
+            menu.MenuItems.Add(new MenuItem("Change Font",new EventHandler(MyControl_Change_Font_Click)));
+            menu.MenuItems.Add(new MenuItem("Remove", new EventHandler(MyControl_remove_label_Click)));
 
+            foreach (Label lbl in Tools.load_file_labels(path))
+            {
+                lbl.Location = lbl_location;
+
+
+                lbl.MouseDown += new MouseEventHandler(MyControl_MouseDown);
+                lbl.MouseMove += new MouseEventHandler(MyControl_MouseMove);
+                lbl.MouseUp += new MouseEventHandler(MyControl_MouseUp);
+                //lbl.MouseDoubleClick += new MouseEventHandler(MyControl_DoubleClick);
+                lbl.ContextMenu = menu;
+
+                ControlsList.Add(lbl);
+                pictureBox1.Controls.Add(lbl);
+
+            }
             // Events
-            lbl.MouseDown += new MouseEventHandler(MyControl_MouseDown);
-            lbl.MouseMove += new MouseEventHandler(MyControl_MouseMove);
-            lbl.MouseUp += new MouseEventHandler(MyControl_MouseUp);
-
-            ControlsList.Add(lbl);
-            pictureBox1.Controls.Add(lbl);
 
         }
 
+
+        
+
+
         void Print_certificate()
         {
+            Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
+
+
+
             string img_path = tmplt_path_tb.Text;
             FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
             Image image = Image.FromStream(fs);
@@ -166,6 +188,7 @@ namespace certificate_generator
             Bitmap b = new Bitmap(image);
             Graphics graphics = Graphics.FromImage(b);
 
+            
             foreach (Label lbl in ControlsList)
             {
                 //Font font = new Font("Times New Roman", 15.0f);
@@ -184,12 +207,7 @@ namespace certificate_generator
 
         }
 
-        private void save_Click(object sender, EventArgs e)
-        {
-            //@"D:\Projects\certificate-generator\Sample\sample_1.png"
-            
-        }
-
+        
         private void choose_fldr_dlg_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -201,29 +219,8 @@ namespace certificate_generator
             }
         }
 
-        private void font_dlg_Click(object sender, EventArgs e)
-        {
-            FontDialog fontDlg = new FontDialog();
-            fontDlg.ShowColor = true;
-            fontDlg.ShowApply = true;
-            fontDlg.ShowEffects = true;
-            fontDlg.ShowHelp = true;
-            fontDlg.MaxSize = 40;
-            fontDlg.MinSize = 12;
-            //Font fnt = new Font();
-            
-            if (fontDlg.ShowDialog() != DialogResult.Cancel)
-            {
-                sample_txt.Font = fontDlg.Font;
-                //sample_txt.BackColor = fontDlg.Color;
-                sample_txt.ForeColor = fontDlg.Color;
-            }
-
-
-
-        }
-
-        private List<List<Tuple<string,Point>>> map_file(string path,List<Label> lbls)
+        
+        private void map_file(string path,List<Label> lbls)
         {
             List<List<Tuple<string, int, int>>> output_data;
             
@@ -242,10 +239,6 @@ namespace certificate_generator
 
                 if(csvTable.Columns.Count == ControlsList.Count)
                 {
-                    //Console.WriteLine();
-                    
-                    //string Row1 = csvTable.Rows[0][0].ToString();
-                    //Console.WriteLine(Row1);
                     for ( int i=0;i< ControlsList.Count;i++)
                     {
                         for(int j= 0; j < csvTable.Columns.Count; j++)
@@ -274,10 +267,21 @@ namespace certificate_generator
                 {
                     // lblFileName.Text = Path.GetFileName(openFileDialog1.FileName);
                     csv_txt.Text = openFileDialog1.FileName;
-                    map_file(csv_txt.Text);
+                    //map_file(csv_txt.Text);
+                    Add_labels_to_Template(csv_txt.Text);
+                    
+                   
 
                 }
             }
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            var d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
+            Tools.map_lbl_to_file(csv_txt.Text, d);
+
+
         }
     }
 }

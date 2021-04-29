@@ -30,17 +30,14 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.load_img_btn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txt = new System.Windows.Forms.TextBox();
             this.remove_txt = new System.Windows.Forms.Button();
             this.save = new System.Windows.Forms.Button();
             this.tmplt_path_tb = new System.Windows.Forms.TextBox();
             this.output_folder_path = new System.Windows.Forms.TextBox();
             this.choose_fldr_dlg = new System.Windows.Forms.Button();
-            this.sample_txt = new System.Windows.Forms.Label();
-            this.font_dlg = new System.Windows.Forms.Button();
             this.csv_dlg = new System.Windows.Forms.Button();
             this.csv_txt = new System.Windows.Forms.TextBox();
+            this.location_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +49,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(640, 481);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // load_img_btn
             // 
@@ -64,32 +60,14 @@
             this.load_img_btn.UseVisualStyleBackColor = true;
             this.load_img_btn.Click += new System.EventHandler(this.load_img_btn_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1151, 191);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 39);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Add text field";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txt
-            // 
-            this.txt.Location = new System.Drawing.Point(936, 201);
-            this.txt.Name = "txt";
-            this.txt.Size = new System.Drawing.Size(173, 20);
-            this.txt.TabIndex = 3;
-            // 
             // remove_txt
             // 
-            this.remove_txt.Location = new System.Drawing.Point(677, 510);
+            this.remove_txt.Location = new System.Drawing.Point(886, 510);
             this.remove_txt.Name = "remove_txt";
             this.remove_txt.Size = new System.Drawing.Size(131, 39);
             this.remove_txt.TabIndex = 4;
-            this.remove_txt.Text = "Remove All Text Fields";
+            this.remove_txt.Text = "Remove All Labels";
             this.remove_txt.UseVisualStyleBackColor = true;
-            this.remove_txt.Click += new System.EventHandler(this.remove_txt_Click);
             // 
             // save
             // 
@@ -125,25 +103,6 @@
             this.choose_fldr_dlg.UseVisualStyleBackColor = true;
             this.choose_fldr_dlg.Click += new System.EventHandler(this.choose_fldr_dlg_Click);
             // 
-            // sample_txt
-            // 
-            this.sample_txt.AutoSize = true;
-            this.sample_txt.Location = new System.Drawing.Point(1054, 50);
-            this.sample_txt.Name = "sample_txt";
-            this.sample_txt.Size = new System.Drawing.Size(73, 13);
-            this.sample_txt.TabIndex = 10;
-            this.sample_txt.Text = "Sample TEXT";
-            // 
-            // font_dlg
-            // 
-            this.font_dlg.Location = new System.Drawing.Point(1151, 125);
-            this.font_dlg.Name = "font_dlg";
-            this.font_dlg.Size = new System.Drawing.Size(105, 39);
-            this.font_dlg.TabIndex = 11;
-            this.font_dlg.Text = "Choose Font";
-            this.font_dlg.UseVisualStyleBackColor = true;
-            this.font_dlg.Click += new System.EventHandler(this.font_dlg_Click);
-            // 
             // csv_dlg
             // 
             this.csv_dlg.Location = new System.Drawing.Point(1151, 372);
@@ -161,22 +120,28 @@
             this.csv_txt.Size = new System.Drawing.Size(173, 20);
             this.csv_txt.TabIndex = 13;
             // 
+            // location_lbl
+            // 
+            this.location_lbl.AutoSize = true;
+            this.location_lbl.Location = new System.Drawing.Point(895, 145);
+            this.location_lbl.Name = "location_lbl";
+            this.location_lbl.Size = new System.Drawing.Size(35, 13);
+            this.location_lbl.TabIndex = 14;
+            this.location_lbl.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1276, 576);
+            this.Controls.Add(this.location_lbl);
             this.Controls.Add(this.csv_txt);
             this.Controls.Add(this.csv_dlg);
-            this.Controls.Add(this.font_dlg);
-            this.Controls.Add(this.sample_txt);
             this.Controls.Add(this.choose_fldr_dlg);
             this.Controls.Add(this.output_folder_path);
             this.Controls.Add(this.tmplt_path_tb);
             this.Controls.Add(this.save);
             this.Controls.Add(this.remove_txt);
-            this.Controls.Add(this.txt);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.load_img_btn);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
@@ -193,17 +158,14 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button load_img_btn;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txt;
         private System.Windows.Forms.Button remove_txt;
         private System.Windows.Forms.Button save;
         private System.Windows.Forms.TextBox tmplt_path_tb;
         private System.Windows.Forms.TextBox output_folder_path;
         private System.Windows.Forms.Button choose_fldr_dlg;
-        private System.Windows.Forms.Label sample_txt;
-        private System.Windows.Forms.Button font_dlg;
         private System.Windows.Forms.Button csv_dlg;
         private System.Windows.Forms.TextBox csv_txt;
+        private System.Windows.Forms.Label location_lbl;
     }
 }
 
