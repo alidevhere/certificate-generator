@@ -219,44 +219,6 @@ namespace certificate_generator
             }
         }
 
-        
-        private void map_file(string path,List<Label> lbls)
-        {
-            List<List<Tuple<string, int, int>>> output_data;
-            
-            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(path)),true,','))
-            {
-                csvTable = new DataTable();
-                mapping = null;
-
-                csvTable.Load(csvReader);
-
-
-                if(ControlsList.Count==0)
-                {
-                    MessageBox.Show("No Labels in template found to be mapped !!");
-                }
-
-                if(csvTable.Columns.Count == ControlsList.Count)
-                {
-                    for ( int i=0;i< ControlsList.Count;i++)
-                    {
-                        for(int j= 0; j < csvTable.Columns.Count; j++)
-                        {
-                            if (ControlsList[i].Text == csvTable.Columns[j].ToString() )
-                            {
-                                //mapping.Add(Tuple.Create(i, j));//lable, file column
-
-                            }
-                        }
-
-                         
-                    }
-                }    
-                
-            }
-
-        }
          
 
         private void csv_dlg_Click(object sender, EventArgs e)
@@ -269,8 +231,6 @@ namespace certificate_generator
                     csv_txt.Text = openFileDialog1.FileName;
                     //map_file(csv_txt.Text);
                     Add_labels_to_Template(csv_txt.Text);
-                    
-                   
 
                 }
             }
@@ -278,8 +238,49 @@ namespace certificate_generator
 
         private void save_Click(object sender, EventArgs e)
         {
-            var d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
-            Tools.map_lbl_to_file(csv_txt.Text, d);
+            Dictionary<string, Point> d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
+            List<List<Tuple<string, Point>>> dic = Tools.map_lbl_to_file(csv_txt.Text, d);
+
+            
+                int i = 0;
+            foreach (var lst in dic)
+            {
+                i++;
+                string img_path = tmplt_path_tb.Text;
+                FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
+                Image image = Image.FromStream(fs);
+                fs.Close();
+
+                Bitmap b = new Bitmap(image);
+                Graphics graphics = Graphics.FromImage(b);
+
+                foreach (Tuple<string,Point> tpl in lst)
+                {
+                    Font font = new Font("Times New Roman", 15.0f);
+                    graphics.DrawString(tpl.Item1, font, Brushes.Black, tpl.Item2.X, tpl.Item2.Y);
+
+                }
+                Console.WriteLine("Image "+i+" saved");
+                b.Save(output_folder_path.Text + "\\"+i+".png", image.RawFormat);
+                image.Dispose();
+                b.Dispose();
+
+                //Font font = new Font("Times New Roman", 15.0f);
+                //MessageBox.Show("Added" + lbl.Text);
+                /*
+                                float x = Math.Abs(lbl.Location.X - pictureBox1.Location.X);
+                                float y = Math.Abs(pictureBox1.Location.Y - lbl.Location.Y);
+                                MessageBox.Show("text " + lbl.Text + "post" + x + "  " + y + lbl.Font.ToString());
+
+                                graphics.DrawString(lbl.Text, lbl.Font, Brushes.Black, x, y);
+                */
+            }
+            MessageBox.Show("Completed");
+
+            //          b.Save(output_folder_path.Text + "\\out.png", image.RawFormat);
+
+            //        image.Dispose();
+            //      b.Dispose();
 
 
         }

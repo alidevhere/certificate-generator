@@ -37,11 +37,9 @@ namespace certificate_generator
         }
 
 
-        public static void map_lbl_to_file(string path, Dictionary<string,Point> location)
+        public static List<List<Tuple<string, Point>>> map_lbl_to_file(string path, Dictionary<string,Point> location)
         {
             Console.WriteLine("Mapping....");
-            Dictionary<string, int> columns = new Dictionary<string, int>();
-
             List<List<Tuple<string, Point>>> output = new List<List<Tuple<string, Point>>>();
 
             using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(path)), true, ','))
@@ -52,20 +50,18 @@ namespace certificate_generator
 
                 for(int i=0; i<csvTable.Rows.Count; i++)
                 {
-                    for(int j=0;j<csvTable.Columns.Count;j++)
+                    List <Tuple<string, Point>> l = new List<Tuple<string, Point>>();
+
+                    for (int j=0;j<csvTable.Columns.Count;j++)
                     {
-                        Console.WriteLine(csvTable.Rows[i][j]);
+                        l.Add(new Tuple<string,Point>(csvTable.Rows[i][j].ToString(), location[csvTable.Columns[j].ColumnName]));
                         
                     }
-                    //location[col.ToString()]
+                    output.Add(l);
+                    
                 }
-
-
-
-
-
             }
-
+            return output;
         }
 
 
