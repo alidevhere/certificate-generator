@@ -37,10 +37,11 @@ namespace certificate_generator
         }
 
 
-        public static List<List<Tuple<string, Point>>> map_lbl_to_file(string path, Dictionary<string,Point> location)
+        public static List<Tuple<List<Tuple<string, Point,Font,Color>>, string>> map_lbl_to_file(string path, Dictionary<string,Point> location,string f_name_col, Dictionary<string,Tuple<Font,Color>> fonts)
         {
             Console.WriteLine("Mapping....");
-            List<List<Tuple<string, Point>>> output = new List<List<Tuple<string, Point>>>();
+            //List<List<Tuple<string, Point>>> output = new List<List<Tuple<string, Point>>>();
+            List<Tuple<List<Tuple<string, Point,Font,Color>>,string>> output = new List<Tuple<List<Tuple<string, Point,Font,Color>>,string>>();
 
             using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(path)), true, ','))
             {
@@ -50,14 +51,27 @@ namespace certificate_generator
 
                 for(int i=0; i<csvTable.Rows.Count; i++)
                 {
-                    List <Tuple<string, Point>> l = new List<Tuple<string, Point>>();
-
+                    List <Tuple<string, Point,Font,Color>> l = new List<Tuple<string, Point,Font,Color>>();
+                    string file_name = "";
                     for (int j=0;j<csvTable.Columns.Count;j++)
                     {
-                        l.Add(new Tuple<string,Point>(csvTable.Rows[i][j].ToString(), location[csvTable.Columns[j].ColumnName]));
+                        l.Add(new Tuple<string,Point,Font,Color>(csvTable.Rows[i][j].ToString(), location[csvTable.Columns[j].ColumnName], fonts[csvTable.Columns[j].ColumnName].Item1, fonts[csvTable.Columns[j].ColumnName].Item2));
                         
+                        
+                       if(f_name_col== csvTable.Columns[j].ColumnName)
+                        {
+                            file_name = csvTable.Rows[i][j].ToString();
+                        }
                     }
-                    output.Add(l);
+
+                    if (f_name_col == "Default Numbering")
+                    {
+                        
+                        int n = i + 1;
+                        file_name = n.ToString();
+
+                    }
+                    output.Add(new Tuple<List<Tuple<string, Point,Font,Color>>,string>(l,file_name));
                     
                 }
             }
@@ -77,6 +91,20 @@ namespace certificate_generator
 
             }
             return locations;
+
+        }
+
+        public static Dictionary<string, Tuple<Font,Color>> get_labels_fonts(IEnumerable<Label> labels)
+        {
+            Dictionary<string, Tuple<Font,Color>> fonts = new Dictionary<string, Tuple<Font,Color>>();
+
+            foreach (Label lbl in labels)
+            {
+                fonts.Add(lbl.Text, new Tuple<Font,Color>(lbl.Font,lbl.ForeColor));
+                //MessageBox.Show("HERE"+lbl.Text+ lbl.Location.X+ lbl.Location.Y);
+
+            }
+            return fonts;
 
         }
 

@@ -10,13 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 namespace certificate_generator
 {
     public partial class Form1 : Form
     {
         private Control activeControl;
         private Point previousPosition;
-        
+        //private Dictionary<string,Color>
         public Form1()
         {
             InitializeComponent();
@@ -83,8 +84,7 @@ namespace certificate_generator
             
             if (fontDlg.ShowDialog() != DialogResult.Cancel)
             {
-                MessageBox.Show(sender.ToString());
-
+               
                 MenuItem menuItem = sender as MenuItem;
                 if(menuItem != null)
                 {
@@ -92,25 +92,10 @@ namespace certificate_generator
                     Control lbl = contextMenu.SourceControl;
                     lbl.Font = fontDlg.Font;
                     lbl.ForeColor = fontDlg.Color;
-
+                    //global_color= fontDlg.Color;
                 }
 
             }
-        }
-
-
-        private void MyControl_remove_label_Click(object sender, EventArgs e)
-        {
-            MenuItem menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                ContextMenu contextMenu = menuItem.GetContextMenu();
-                Control lbl = contextMenu.SourceControl;
-                pictureBox1.Controls.Remove(lbl);
-
-            }
-
-
         }
 
 
@@ -122,8 +107,7 @@ namespace certificate_generator
             ContextMenu menu = new ContextMenu();
             
             menu.MenuItems.Add(new MenuItem("Change Font",new EventHandler(MyControl_Change_Font_Click)));
-            menu.MenuItems.Add(new MenuItem("Remove", new EventHandler(MyControl_remove_label_Click)));
-
+            
             foreach (Label lbl in Tools.load_file_labels(path))
             {
                 lbl.Location = lbl_location;
@@ -170,39 +154,67 @@ namespace certificate_generator
             file_names_dd.SelectedIndex = 0;
         }
 
+
+
+        private bool check_validations()
+        {
+            string a = output_folder_path.Text;
+            string b = csv_txt.Text;
+            string c = tmplt_path_tb.Text;
+            return (!String.IsNullOrWhiteSpace(a) && !String.IsNullOrWhiteSpace(b) && !String.IsNullOrWhiteSpace(c));
+            
+
+        }
+
         private void save_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Point> d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
-            List<List<Tuple<string, Point>>> dic = Tools.map_lbl_to_file(csv_txt.Text, d);
-
-            
-                int i = 0;
-            foreach (var lst in dic)
+            if(check_validations())
             {
-                i++;
-                string img_path = tmplt_path_tb.Text;
-                FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
-                Image image = Image.FromStream(fs);
-                fs.Close();
+                Dictionary<string, Point> d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
+                Dictionary<string,Tuple<Font,Color>> fonts = Tools.get_labels_fonts(pictureBox1.Controls.OfType<Label>());
 
-                Bitmap b = new Bitmap(image);
-                Graphics graphics = Graphics.FromImage(b);
+                List<Tuple<List<Tuple<string, Point,Font,Color>>, string>> dic = Tools.map_lbl_to_file(csv_txt.Text, d, file_names_dd.Text,fonts);
+                
+                
 
-                foreach (Tuple<string,Point> tpl in lst)
+                foreach (var tpl1 in dic)
                 {
-                    Font font = new Font("Times New Roman", 15.0f);
-                    graphics.DrawString(tpl.Item1, font, Brushes.Black, tpl.Item2.X, tpl.Item2.Y);
+                    string img_path = tmplt_path_tb.Text;
+                    FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
+                    Image image = Image.FromStream(fs);
+                    fs.Close();
+
+                    Bitmap b = new Bitmap(image);
+                    Graphics graphics = Graphics.FromImage(b);
+
+                    foreach (Tuple<string, Point,Font,Color> tpl in tpl1.Item1)
+                    {
+
+                        Brush brush = new SolidBrush(Color.FromName(tpl.Item4.Name));
+                        if (!tpl.Item4.IsNamedColor)
+                        {
+
+                            MessageBox.Show("Not Valid color : "+ tpl.Item4.Name);
+                            brush = new SolidBrush(Color.FromName("Black"));
+                        }
+
+                        graphics.DrawString(tpl.Item1, tpl.Item3, brush, tpl.Item2.X, tpl.Item2.Y);
+
+                    }
+                    Console.WriteLine("Image " + tpl1.Item2 + " saved");
+                    string extension = get_output_file_type();
+                    b.Save(output_folder_path.Text + "\\" + tpl1.Item2 + extension, image.RawFormat);
+                    image.Dispose();
+                    b.Dispose();
 
                 }
-                Console.WriteLine("Image "+i+" saved");
-                string extension = get_output_file_type();
-                b.Save(output_folder_path.Text + "\\"+i+extension, image.RawFormat);
-                image.Dispose();
-                b.Dispose();
+                MessageBox.Show("Completed");
+            }
+            else
+            {
+                MessageBox.Show("Please choose all options");
 
             }
-            MessageBox.Show("Completed");
-
         }
 
 
@@ -229,6 +241,8 @@ namespace certificate_generator
             tmplt_path_tb.Text = "";
             pictureBox1.Controls.Clear();
             file_names_dd.Items.Clear();
+            file_names_dd.Items.Add("Default Numbering");
+            file_names_dd.SelectedIndex = 0;
             png_rb.Checked = true;
 
         }
@@ -253,6 +267,10 @@ namespace certificate_generator
             return output_ext;
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            file_names_dd.SelectedIndex = 0;
 
+        }
     }
 }
