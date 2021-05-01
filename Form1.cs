@@ -14,29 +14,16 @@ namespace certificate_generator
 {
     public partial class Form1 : Form
     {
-        List<Label> ControlsList;
         private Control activeControl;
         private Point previousPosition;
-        DataTable csvTable;
-        List<Tuple<int, int>> mapping;
         
         public Form1()
         {
             InitializeComponent();
-            ControlsList = new List<Label>();
         }
 
         
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            var f = Tools.load_file_labels(@"D:\Projects\certificate-generator\Sample\fie.csv");
-
-            foreach (Label l in f)
-            {
-                Console.WriteLine(l.Text);
-            }
-        }
-
+        
         private void load_img_btn_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
@@ -127,31 +114,13 @@ namespace certificate_generator
         }
 
 
-        // ================    Functions =============
-
-
-        //Load lables from csv file
-        
-
 
             private void Add_labels_to_Template(string path)
             {
-            /*
-            Label lbl = new Label();
-            lbl.Font = sample_txt.Font;
-            lbl.ForeColor = sample_txt.ForeColor; 
-
-            lbl.Text = name; //txt.Text;
-            lbl.Location = new Point(30, 50);
-            //myControl.Size = //new Size(50, 50);
-            lbl.AutoSize = true;
-            //lbl.Font = font;
-            */
+            
             Point lbl_location = new Point(30, 50);
             ContextMenu menu = new ContextMenu();
-            //var menuItem = new MenuItem("Change Font");
             
-            //menuItem.Click += new MouseEventHandler(MyControl_Change_Font_Click);
             menu.MenuItems.Add(new MenuItem("Change Font",new EventHandler(MyControl_Change_Font_Click)));
             menu.MenuItems.Add(new MenuItem("Remove", new EventHandler(MyControl_remove_label_Click)));
 
@@ -159,55 +128,14 @@ namespace certificate_generator
             {
                 lbl.Location = lbl_location;
 
-
                 lbl.MouseDown += new MouseEventHandler(MyControl_MouseDown);
                 lbl.MouseMove += new MouseEventHandler(MyControl_MouseMove);
                 lbl.MouseUp += new MouseEventHandler(MyControl_MouseUp);
-                //lbl.MouseDoubleClick += new MouseEventHandler(MyControl_DoubleClick);
                 lbl.ContextMenu = menu;
 
-                ControlsList.Add(lbl);
                 pictureBox1.Controls.Add(lbl);
-
+                file_names_dd.Items.Add(lbl.Text);
             }
-            // Events
-
-        }
-
-
-        
-
-
-        void Print_certificate()
-        {
-            Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
-
-
-
-            string img_path = tmplt_path_tb.Text;
-            FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
-            Image image = Image.FromStream(fs);
-            fs.Close();
-
-            Bitmap b = new Bitmap(image);
-            Graphics graphics = Graphics.FromImage(b);
-
-            
-            foreach (Label lbl in ControlsList)
-            {
-                //Font font = new Font("Times New Roman", 15.0f);
-                //MessageBox.Show("Added" + lbl.Text);
-                float x = Math.Abs(lbl.Location.X - pictureBox1.Location.X);
-                float y = Math.Abs(pictureBox1.Location.Y - lbl.Location.Y);
-                MessageBox.Show("text " + lbl.Text + "post" + x + "  " + y + lbl.Font.ToString());
-
-                graphics.DrawString(lbl.Text, lbl.Font, Brushes.Black, x, y);
-            }
-            b.Save(output_folder_path.Text + "\\out.png", image.RawFormat);
-
-            image.Dispose();
-            b.Dispose();
-            MessageBox.Show("MessageBox");
 
         }
 
@@ -238,6 +166,8 @@ namespace certificate_generator
 
                 }
             }
+
+            file_names_dd.SelectedIndex = 0;
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -265,34 +195,16 @@ namespace certificate_generator
 
                 }
                 Console.WriteLine("Image "+i+" saved");
-                b.Save(output_folder_path.Text + "\\"+i+".png", image.RawFormat);
+                string extension = get_output_file_type();
+                b.Save(output_folder_path.Text + "\\"+i+extension, image.RawFormat);
                 image.Dispose();
                 b.Dispose();
 
-                //Font font = new Font("Times New Roman", 15.0f);
-                //MessageBox.Show("Added" + lbl.Text);
-                /*
-                                float x = Math.Abs(lbl.Location.X - pictureBox1.Location.X);
-                                float y = Math.Abs(pictureBox1.Location.Y - lbl.Location.Y);
-                                MessageBox.Show("text " + lbl.Text + "post" + x + "  " + y + lbl.Font.ToString());
-
-                                graphics.DrawString(lbl.Text, lbl.Font, Brushes.Black, x, y);
-                */
             }
             MessageBox.Show("Completed");
 
-            //          b.Save(output_folder_path.Text + "\\out.png", image.RawFormat);
-
-            //        image.Dispose();
-            //      b.Dispose();
-
-
         }
 
-        private void location_lbl_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void remove_txt_Click(object sender, EventArgs e)
         {
@@ -316,7 +228,31 @@ namespace certificate_generator
             csv_txt.Text = "";
             tmplt_path_tb.Text = "";
             pictureBox1.Controls.Clear();
+            file_names_dd.Items.Clear();
+            png_rb.Checked = true;
 
         }
+
+
+        private string get_output_file_type()
+        {
+            string output_ext = "";
+            if(png_rb.Checked)
+            {
+                output_ext = ".png";
+            }
+            else if(jpeg_rb.Checked)
+            {
+                output_ext = ".jpeg";
+
+            }else if(jpg_rb.Checked)
+            {
+                output_ext = ".jpg";
+            }
+
+            return output_ext;
+        }
+
+
     }
 }

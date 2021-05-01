@@ -40,18 +40,19 @@
             this.csv_txt = new System.Windows.Forms.TextBox();
             this.location_lbl = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.file_names_dd = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.jpg_rb = new System.Windows.Forms.RadioButton();
+            this.png_rb = new System.Windows.Forms.RadioButton();
+            this.jpeg_rb = new System.Windows.Forms.RadioButton();
+            this.reset_btn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.img_dim_lbl = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.img_dim_lbl = new System.Windows.Forms.Label();
-            this.reset_btn = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -91,9 +92,9 @@
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(266, 322);
+            this.save.Location = new System.Drawing.Point(72, 512);
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(119, 39);
+            this.save.Size = new System.Drawing.Size(294, 39);
             this.save.TabIndex = 5;
             this.save.Text = "Create Certificates";
             this.save.UseVisualStyleBackColor = true;
@@ -148,16 +149,16 @@
             this.location_lbl.Size = new System.Drawing.Size(16, 13);
             this.location_lbl.TabIndex = 14;
             this.location_lbl.Text = "-,-";
-            this.location_lbl.Click += new System.EventHandler(this.location_lbl_Click);
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.domainUpDown1);
+            this.panel1.Controls.Add(this.file_names_dd);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.radioButton3);
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Controls.Add(this.jpg_rb);
+            this.panel1.Controls.Add(this.png_rb);
+            this.panel1.Controls.Add(this.jpeg_rb);
             this.panel1.Controls.Add(this.reset_btn);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.img_dim_lbl);
@@ -174,48 +175,83 @@
             this.panel1.Controls.Add(this.choose_fldr_dlg);
             this.panel1.Location = new System.Drawing.Point(819, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(409, 543);
+            this.panel1.Size = new System.Drawing.Size(409, 558);
             this.panel1.TabIndex = 15;
             // 
-            // label1
+            // file_names_dd
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Location :";
+            this.file_names_dd.DisplayMember = "0";
+            this.file_names_dd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.file_names_dd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.file_names_dd.FormattingEnabled = true;
+            this.file_names_dd.Items.AddRange(new object[] {
+            "Default Numbering"});
+            this.file_names_dd.Location = new System.Drawing.Point(232, 378);
+            this.file_names_dd.Name = "file_names_dd";
+            this.file_names_dd.Size = new System.Drawing.Size(153, 24);
+            this.file_names_dd.TabIndex = 25;
             // 
-            // panel2
+            // label4
             // 
-            this.panel2.AutoScroll = true;
-            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Location = new System.Drawing.Point(3, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(810, 543);
-            this.panel2.TabIndex = 16;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(23, 381);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(201, 26);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Name output files according to : ";
             // 
-            // panel3
+            // label3
             // 
-            this.panel3.Controls.Add(this.panel1);
-            this.panel3.Controls.Add(this.panel2);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1240, 558);
-            this.panel3.TabIndex = 17;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 329);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Output File Type";
             // 
-            // button1
+            // jpg_rb
             // 
-            this.button1.Location = new System.Drawing.Point(23, 448);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 39);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Remove Template";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.jpg_rb.AutoSize = true;
+            this.jpg_rb.Location = new System.Drawing.Point(206, 327);
+            this.jpg_rb.Name = "jpg_rb";
+            this.jpg_rb.Size = new System.Drawing.Size(42, 17);
+            this.jpg_rb.TabIndex = 22;
+            this.jpg_rb.TabStop = true;
+            this.jpg_rb.Text = ".jpg";
+            this.jpg_rb.UseVisualStyleBackColor = true;
+            // 
+            // png_rb
+            // 
+            this.png_rb.AutoSize = true;
+            this.png_rb.Checked = true;
+            this.png_rb.Location = new System.Drawing.Point(135, 327);
+            this.png_rb.Name = "png_rb";
+            this.png_rb.Size = new System.Drawing.Size(46, 17);
+            this.png_rb.TabIndex = 21;
+            this.png_rb.TabStop = true;
+            this.png_rb.Text = ".png";
+            this.png_rb.UseVisualStyleBackColor = true;
+            // 
+            // jpeg_rb
+            // 
+            this.jpeg_rb.AutoSize = true;
+            this.jpeg_rb.Location = new System.Drawing.Point(266, 327);
+            this.jpeg_rb.Name = "jpeg_rb";
+            this.jpeg_rb.Size = new System.Drawing.Size(48, 17);
+            this.jpeg_rb.TabIndex = 20;
+            this.jpeg_rb.TabStop = true;
+            this.jpeg_rb.Text = ".jpeg";
+            this.jpeg_rb.UseVisualStyleBackColor = true;
+            // 
+            // reset_btn
+            // 
+            this.reset_btn.Location = new System.Drawing.Point(296, 448);
+            this.reset_btn.Name = "reset_btn";
+            this.reset_btn.Size = new System.Drawing.Size(106, 39);
+            this.reset_btn.TabIndex = 19;
+            this.reset_btn.Text = "Reset";
+            this.reset_btn.UseVisualStyleBackColor = true;
+            this.reset_btn.Click += new System.EventHandler(this.reset_btn_Click);
             // 
             // label2
             // 
@@ -235,75 +271,54 @@
             this.img_dim_lbl.TabIndex = 17;
             this.img_dim_lbl.Text = "0 x 0";
             // 
-            // reset_btn
+            // button1
             // 
-            this.reset_btn.Location = new System.Drawing.Point(41, 505);
-            this.reset_btn.Name = "reset_btn";
-            this.reset_btn.Size = new System.Drawing.Size(106, 39);
-            this.reset_btn.TabIndex = 19;
-            this.reset_btn.Text = "Reset";
-            this.reset_btn.UseVisualStyleBackColor = true;
-            this.reset_btn.Click += new System.EventHandler(this.reset_btn_Click);
+            this.button1.Location = new System.Drawing.Point(23, 448);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(106, 39);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Remove Template";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // radioButton1
+            // label1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(189, 344);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(45, 17);
-            this.radioButton1.TabIndex = 20;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "jpeg";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(38, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Location :";
             // 
-            // radioButton2
+            // panel2
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(95, 342);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(43, 17);
-            this.radioButton2.TabIndex = 21;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "png";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.panel2.AutoScroll = true;
+            this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Location = new System.Drawing.Point(3, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(810, 558);
+            this.panel2.TabIndex = 16;
             // 
-            // radioButton3
+            // panel3
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(144, 342);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(39, 17);
-            this.radioButton3.TabIndex = 22;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "jpg";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 344);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 13);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Output File Type";
-            // 
-            // domainUpDown1
-            // 
-            this.domainUpDown1.Location = new System.Drawing.Point(27, 389);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.domainUpDown1.TabIndex = 1;
-            this.domainUpDown1.Text = "domainUpDown1";
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Controls.Add(this.panel2);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1240, 582);
+            this.panel3.TabIndex = 17;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 558);
+            this.ClientSize = new System.Drawing.Size(1240, 582);
             this.Controls.Add(this.panel3);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -335,10 +350,11 @@
         private System.Windows.Forms.Label img_dim_lbl;
         private System.Windows.Forms.Button reset_btn;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
+        private System.Windows.Forms.RadioButton jpg_rb;
+        private System.Windows.Forms.RadioButton png_rb;
+        private System.Windows.Forms.RadioButton jpeg_rb;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox file_names_dd;
     }
 }
 
