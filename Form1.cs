@@ -11,6 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+
+1- Check for unique columns and add only those columns to "Name output files according to Drop down list"
+
+*/
+
+
+
 namespace certificate_generator
 {
     public partial class Form1 : Form
@@ -166,6 +174,32 @@ namespace certificate_generator
 
         }
 
+
+
+        private void convert_to_pdf(string img_path,string pdf_path)
+        {
+
+            iTextSharp.text.Rectangle pageSize = null;
+
+            using (var srcImage = new Bitmap(img_path))
+            {
+                pageSize = new iTextSharp.text.Rectangle(0, 0, srcImage.Width, srcImage.Height);
+            }
+            using (var ms = new MemoryStream())
+            {
+                var document = new iTextSharp.text.Document(pageSize, 0, 0, 0, 0);
+                iTextSharp.text.pdf.PdfWriter.GetInstance(document, ms).SetFullCompression();
+                document.Open();
+                var pdf_img = iTextSharp.text.Image.GetInstance(img_path);
+                document.Add(pdf_img);
+                document.Close();
+
+                File.WriteAllBytes(pdf_path + ".pdf", ms.ToArray());
+            }
+
+
+        }
+
         private void save_Click(object sender, EventArgs e)
         {
             if(check_validations())
@@ -203,10 +237,50 @@ namespace certificate_generator
                     }
                     Console.WriteLine("Image " + tpl1.Item2 + " saved");
                     string extension = get_output_file_type();
-                    b.Save(output_folder_path.Text + "\\" + tpl1.Item2 + extension, image.RawFormat);
-                    image.Dispose();
-                    b.Dispose();
 
+
+
+                    // ====  SAVING IMAGE FILE =========
+
+                    string output_path = output_folder_path.Text + "\\" + tpl1.Item2 ;//without extension
+
+                    if (extension == ".pdf")
+                    {
+                        b.Save(output_path + ".png", image.RawFormat);
+                        image.Dispose();
+                        b.Dispose();
+                        convert_to_pdf(output_path + ".png", output_path);
+
+                        try
+                        {
+                            // Check if file exists with its full path    
+                            if (File.Exists(output_path + ".png"))
+                            {
+                                // If file found, delete it    
+                                File.Delete(output_path + ".png");
+                                Console.WriteLine(tpl1.Item2 + "  deleted.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("File not found");
+                            }
+                        }
+                        catch (IOException ioExp)
+                        {
+                            Console.WriteLine(ioExp.Message);
+                        }
+
+
+
+
+                    }
+                    else
+                    {
+                        b.Save(output_path + extension, image.RawFormat);
+                        image.Dispose();
+                        b.Dispose();
+
+                    }
                 }
                 MessageBox.Show("Completed");
             }
@@ -227,8 +301,15 @@ namespace certificate_generator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = null;
+            //pictureBox1.Image = null;
             tmplt_path_tb.Text = "";
+            pictureBox1.Controls.Clear();
+
+            if (!String.IsNullOrWhiteSpace(csv_txt.Text))
+            {
+                Add_labels_to_Template(csv_txt.Text);
+            }
+        
         }
 
         private void reset_btn_Click(object sender, EventArgs e)
@@ -262,6 +343,10 @@ namespace certificate_generator
             }else if(jpg_rb.Checked)
             {
                 output_ext = ".jpg";
+            }
+            else if (pdf_rb.Checked)
+            {
+                output_ext = ".pdf";
             }
 
             return output_ext;

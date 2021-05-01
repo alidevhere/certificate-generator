@@ -53,6 +53,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pdf_rb = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -153,6 +154,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.pdf_rb);
             this.panel1.Controls.Add(this.file_names_dd);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
@@ -311,6 +313,17 @@
             this.panel3.Size = new System.Drawing.Size(1240, 582);
             this.panel3.TabIndex = 17;
             // 
+            // pdf_rb
+            // 
+            this.pdf_rb.AutoSize = true;
+            this.pdf_rb.Location = new System.Drawing.Point(328, 329);
+            this.pdf_rb.Name = "pdf_rb";
+            this.pdf_rb.Size = new System.Drawing.Size(43, 17);
+            this.pdf_rb.TabIndex = 26;
+            this.pdf_rb.TabStop = true;
+            this.pdf_rb.Text = ".pdf";
+            this.pdf_rb.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -356,6 +369,7 @@
         private System.Windows.Forms.RadioButton jpeg_rb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox file_names_dd;
+        private System.Windows.Forms.RadioButton pdf_rb;
     }
 }
 
