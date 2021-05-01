@@ -41,10 +41,13 @@ namespace certificate_generator
         {
             using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
             {
+                openFileDialog1.Filter = "Templates |*.png;*.jpg;*.jpeg;";
+
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    // lblFileName.Text = Path.GetFileName(openFileDialog1.FileName);
-                    pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
+                    Image img = Image.FromFile(openFileDialog1.FileName);
+                    pictureBox1.Image = img;
+                    img_dim_lbl.Text = img.Width + " x " + img.Height;
                     tmplt_path_tb.Text = openFileDialog1.FileName;
 
                 }
@@ -66,9 +69,7 @@ namespace certificate_generator
         {
             activeControl = null;
             Cursor = Cursors.Default;
-            Control s = sender as Control;
-            location_lbl.Text = s.Location.X + " , " + s.Location.Y;
-
+            
         }
 
         private void MyControl_MouseMove(Object sender, MouseEventArgs e)
@@ -80,6 +81,9 @@ namespace certificate_generator
             var location = activeControl.Location;
             location.Offset(e.Location.X - previousPosition.X, e.Location.Y - previousPosition.Y);
             activeControl.Location = location;
+            
+            Control s = sender as Control;
+            location_lbl.Text = s.Location.X + " , " + s.Location.Y;
 
         }
 
@@ -225,11 +229,11 @@ namespace certificate_generator
         {
             using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
             {
+                openFileDialog1.Filter = "CSV files (*.csv)|*.csv";
+
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    // lblFileName.Text = Path.GetFileName(openFileDialog1.FileName);
                     csv_txt.Text = openFileDialog1.FileName;
-                    //map_file(csv_txt.Text);
                     Add_labels_to_Template(csv_txt.Text);
 
                 }
@@ -282,6 +286,36 @@ namespace certificate_generator
             //        image.Dispose();
             //      b.Dispose();
 
+
+        }
+
+        private void location_lbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void remove_txt_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Controls.Clear();
+            csv_txt.Text = "";
+            location_lbl.Text = "-,-";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = null;
+            tmplt_path_tb.Text = "";
+        }
+
+        private void reset_btn_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = null;
+            location_lbl.Text = "-,-";
+            img_dim_lbl.Text = "0 x 0";
+            output_folder_path.Text = "";
+            csv_txt.Text = "";
+            tmplt_path_tb.Text = "";
+            pictureBox1.Controls.Clear();
 
         }
     }
