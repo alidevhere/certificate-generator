@@ -15,3 +15,4 @@ D:\Projects\certificate-generator\bin\Debug\LumenWorks.Framework.IO.xml
 D:\Projects\certificate-generator\bin\Debug\BouncyCastle.Crypto.dll
 D:\Projects\certificate-generator\bin\Debug\itextsharp.dll
 D:\Projects\certificate-generator\bin\Debug\itextsharp.xml
+D:\Projects\certificate-generator\obj\Debug\certificate_generator.Progress.resources

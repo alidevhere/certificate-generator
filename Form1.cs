@@ -25,13 +25,12 @@ namespace certificate_generator
     {
         private Control activeControl;
         private Point previousPosition;
-        //private Dictionary<string,Color>
+        private int increment;
         public Form1()
         {
             InitializeComponent();
         }
 
-        
         
         private void load_img_btn_Click(object sender, EventArgs e)
         {
@@ -88,11 +87,10 @@ namespace certificate_generator
             FontDialog fontDlg = new FontDialog();
             fontDlg.ShowColor = true;
             fontDlg.ShowEffects = true;
-            fontDlg.MaxSize = 40;
+            fontDlg.MaxSize = 100;
             
             if (fontDlg.ShowDialog() != DialogResult.Cancel)
-            {
-               
+            {  
                 MenuItem menuItem = sender as MenuItem;
                 if(menuItem != null)
                 {
@@ -100,7 +98,6 @@ namespace certificate_generator
                     Control lbl = contextMenu.SourceControl;
                     lbl.Font = fontDlg.Font;
                     lbl.ForeColor = fontDlg.Color;
-                    //global_color= fontDlg.Color;
                 }
 
             }
@@ -108,28 +105,28 @@ namespace certificate_generator
 
 
 
-            private void Add_labels_to_Template(string path)
-            {
+         private void Add_labels_to_Template(string path)
+          {
             
-            Point lbl_location = new Point(30, 50);
-            ContextMenu menu = new ContextMenu();
+                Point lbl_location = new Point(30, 50);
+                ContextMenu menu = new ContextMenu();
             
-            menu.MenuItems.Add(new MenuItem("Change Font",new EventHandler(MyControl_Change_Font_Click)));
+                menu.MenuItems.Add(new MenuItem("Change Font",new EventHandler(MyControl_Change_Font_Click)));
             
-            foreach (Label lbl in Tools.load_file_labels(path))
-            {
-                lbl.Location = lbl_location;
+                foreach (Label lbl in Tools.load_file_labels(path))
+                {
+                    lbl.Location = lbl_location;
 
-                lbl.MouseDown += new MouseEventHandler(MyControl_MouseDown);
-                lbl.MouseMove += new MouseEventHandler(MyControl_MouseMove);
-                lbl.MouseUp += new MouseEventHandler(MyControl_MouseUp);
-                lbl.ContextMenu = menu;
+                    lbl.MouseDown += new MouseEventHandler(MyControl_MouseDown);
+                    lbl.MouseMove += new MouseEventHandler(MyControl_MouseMove);
+                    lbl.MouseUp += new MouseEventHandler(MyControl_MouseUp);
+                    lbl.ContextMenu = menu;
 
-                pictureBox1.Controls.Add(lbl);
-                file_names_dd.Items.Add(lbl.Text);
-            }
+                    pictureBox1.Controls.Add(lbl);
+                    file_names_dd.Items.Add(lbl.Text);
+                }
 
-        }
+         }
 
         
         private void choose_fldr_dlg_Click(object sender, EventArgs e)
@@ -162,8 +159,6 @@ namespace certificate_generator
             file_names_dd.SelectedIndex = 0;
         }
 
-
-
         private bool check_validations()
         {
             string a = output_folder_path.Text;
@@ -171,126 +166,13 @@ namespace certificate_generator
             string c = tmplt_path_tb.Text;
             return (!String.IsNullOrWhiteSpace(a) && !String.IsNullOrWhiteSpace(b) && !String.IsNullOrWhiteSpace(c));
             
-
         }
 
 
 
-        private void convert_to_pdf(string img_path,string pdf_path)
-        {
+        
 
-            iTextSharp.text.Rectangle pageSize = null;
-
-            using (var srcImage = new Bitmap(img_path))
-            {
-                pageSize = new iTextSharp.text.Rectangle(0, 0, srcImage.Width, srcImage.Height);
-            }
-            using (var ms = new MemoryStream())
-            {
-                var document = new iTextSharp.text.Document(pageSize, 0, 0, 0, 0);
-                iTextSharp.text.pdf.PdfWriter.GetInstance(document, ms).SetFullCompression();
-                document.Open();
-                var pdf_img = iTextSharp.text.Image.GetInstance(img_path);
-                document.Add(pdf_img);
-                document.Close();
-
-                File.WriteAllBytes(pdf_path + ".pdf", ms.ToArray());
-            }
-
-
-        }
-
-        private void save_Click(object sender, EventArgs e)
-        {
-            if(check_validations())
-            {
-                Dictionary<string, Point> d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
-                Dictionary<string,Tuple<Font,Color>> fonts = Tools.get_labels_fonts(pictureBox1.Controls.OfType<Label>());
-
-                List<Tuple<List<Tuple<string, Point,Font,Color>>, string>> dic = Tools.map_lbl_to_file(csv_txt.Text, d, file_names_dd.Text,fonts);
-                
-                
-
-                foreach (var tpl1 in dic)
-                {
-                    string img_path = tmplt_path_tb.Text;
-                    FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
-                    Image image = Image.FromStream(fs);
-                    fs.Close();
-
-                    Bitmap b = new Bitmap(image);
-                    Graphics graphics = Graphics.FromImage(b);
-
-                    foreach (Tuple<string, Point,Font,Color> tpl in tpl1.Item1)
-                    {
-
-                        Brush brush = new SolidBrush(Color.FromName(tpl.Item4.Name));
-                        if (!tpl.Item4.IsNamedColor)
-                        {
-
-                            MessageBox.Show("Not Valid color : "+ tpl.Item4.Name);
-                            brush = new SolidBrush(Color.FromName("Black"));
-                        }
-
-                        graphics.DrawString(tpl.Item1, tpl.Item3, brush, tpl.Item2.X, tpl.Item2.Y);
-
-                    }
-                    Console.WriteLine("Image " + tpl1.Item2 + " saved");
-                    string extension = get_output_file_type();
-
-
-
-                    // ====  SAVING IMAGE FILE =========
-
-                    string output_path = output_folder_path.Text + "\\" + tpl1.Item2 ;//without extension
-
-                    if (extension == ".pdf")
-                    {
-                        b.Save(output_path + ".png", image.RawFormat);
-                        image.Dispose();
-                        b.Dispose();
-                        convert_to_pdf(output_path + ".png", output_path);
-
-                        try
-                        {
-                            // Check if file exists with its full path    
-                            if (File.Exists(output_path + ".png"))
-                            {
-                                // If file found, delete it    
-                                File.Delete(output_path + ".png");
-                                Console.WriteLine(tpl1.Item2 + "  deleted.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("File not found");
-                            }
-                        }
-                        catch (IOException ioExp)
-                        {
-                            Console.WriteLine(ioExp.Message);
-                        }
-
-
-
-
-                    }
-                    else
-                    {
-                        b.Save(output_path + extension, image.RawFormat);
-                        image.Dispose();
-                        b.Dispose();
-
-                    }
-                }
-                MessageBox.Show("Completed");
-            }
-            else
-            {
-                MessageBox.Show("Please choose all options");
-
-            }
-        }
-
+    
 
         private void remove_txt_Click(object sender, EventArgs e)
         {
@@ -357,5 +239,62 @@ namespace certificate_generator
             file_names_dd.SelectedIndex = 0;
 
         }
+
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            if (check_validations())
+            {
+                
+                Dictionary<string, Point> d = Tools.get_labels_locations(pictureBox1.Controls.OfType<Label>());
+                Dictionary<string, Tuple<Font, Color>> fonts = Tools.get_labels_fonts(pictureBox1.Controls.OfType<Label>());
+                List<Tuple<List<Tuple<string, Point, Font, Color>>, string>> dic = Tools.map_lbl_to_file(csv_txt.Text, d, file_names_dd.Text, fonts);
+                
+                Progress p = new Progress(dic, tmplt_path_tb.Text, get_output_file_type(), output_folder_path.Text);
+                p.ShowDialog();
+                
+                //Tuple<List<Tuple<List<Tuple<string, Point, Font, Color>>, string>>, string, string, string> data = new Tuple<List<Tuple<List<Tuple<string, Point, Font, Color>>, string>>, string, string, string>(dic, tmplt_path_tb.Text, get_output_file_type(), output_folder_path.Text);
+                //increment = 100 / dic.Count;
+                //bg_worker.RunWorkerAsync(data);
+                //p.Show();
+
+            }
+            else
+            {
+                MessageBox.Show("Please choose all options");
+
+            }
+
+        }
+
+        private void convert_to_pdf(string img_path, string pdf_path)
+        {
+
+            iTextSharp.text.Rectangle pageSize = null;
+
+            using (var srcImage = new Bitmap(img_path))
+            {
+                pageSize = new iTextSharp.text.Rectangle(0, 0, srcImage.Width, srcImage.Height);
+            }
+            using (var ms = new MemoryStream())
+            {
+                var document = new iTextSharp.text.Document(pageSize, 0, 0, 0, 0);
+                iTextSharp.text.pdf.PdfWriter.GetInstance(document, ms).SetFullCompression();
+                document.Open();
+                var pdf_img = iTextSharp.text.Image.GetInstance(img_path);
+                document.Add(pdf_img);
+                document.Close();
+
+                File.WriteAllBytes(pdf_path + ".pdf", ms.ToArray());
+            }
+
+
+        }
+
+
+
+
+
+        
     }
 }

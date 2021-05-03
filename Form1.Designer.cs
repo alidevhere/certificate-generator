@@ -40,6 +40,7 @@
             this.csv_txt = new System.Windows.Forms.TextBox();
             this.location_lbl = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pdf_rb = new System.Windows.Forms.RadioButton();
             this.file_names_dd = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,7 +54,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pdf_rb = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -179,6 +179,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(409, 558);
             this.panel1.TabIndex = 15;
+            // 
+            // pdf_rb
+            // 
+            this.pdf_rb.AutoSize = true;
+            this.pdf_rb.Location = new System.Drawing.Point(328, 329);
+            this.pdf_rb.Name = "pdf_rb";
+            this.pdf_rb.Size = new System.Drawing.Size(43, 17);
+            this.pdf_rb.TabIndex = 26;
+            this.pdf_rb.TabStop = true;
+            this.pdf_rb.Text = ".pdf";
+            this.pdf_rb.UseVisualStyleBackColor = true;
             // 
             // file_names_dd
             // 
@@ -313,17 +324,6 @@
             this.panel3.Size = new System.Drawing.Size(1240, 582);
             this.panel3.TabIndex = 17;
             // 
-            // pdf_rb
-            // 
-            this.pdf_rb.AutoSize = true;
-            this.pdf_rb.Location = new System.Drawing.Point(328, 329);
-            this.pdf_rb.Name = "pdf_rb";
-            this.pdf_rb.Size = new System.Drawing.Size(43, 17);
-            this.pdf_rb.TabIndex = 26;
-            this.pdf_rb.TabStop = true;
-            this.pdf_rb.Text = ".pdf";
-            this.pdf_rb.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,6 +331,7 @@
             this.ClientSize = new System.Drawing.Size(1240, 582);
             this.Controls.Add(this.panel3);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
