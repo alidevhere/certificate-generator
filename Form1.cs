@@ -25,7 +25,6 @@ namespace certificate_generator
     {
         private Control activeControl;
         private Point previousPosition;
-        private int increment;
         public Form1()
         {
             InitializeComponent();
