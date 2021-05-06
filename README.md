@@ -51,12 +51,17 @@ Load the template in png,jpeg,jpg or pdf format. PDF format is discouraged becau
 
 # 6. Load .CSV file:
 
-Load the csv file by clicking on load Data. Loading this file will create dragable labels of text same as headings in csv file.
-Drag these labels to correct locations in template file where you want the text to be printed. These labels appear on top left 
-corner of picture by default, drag them to your desired location. 
+Load the csv file by clicking on load Data. 
 
 
 ![load-csv-file](https://user-images.githubusercontent.com/53839118/117348203-5ef67d00-aec3-11eb-998a-3ec24c3bfbe4.gif)
+
+
+# 7. Drag the labels to desired location:
+
+ Loading this file will create dragable labels of text same as headings in csv file.
+Drag these labels to correct locations in template file where you want the text to be printed. These labels appear on top left 
+corner of picture by default, drag them to your desired location.
 
 
 ![choose-output-format](https://user-images.githubusercontent.com/53839118/117346966-e3480080-aec1-11eb-8c7f-9ace0d5315eb.gif)
