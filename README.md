@@ -28,5 +28,22 @@ Now you need to give heading to each column of csv file these headings will be u
 
 After successfully Intalling app, Run app.
 
-# 4. Load Certificate Template
+# 4. Choose output folder:
 
+Click on Choose Output Folder and browse to the folder where you want all your generated certificates.
+
+
+
+![choose-output-folder](https://user-images.githubusercontent.com/53839118/117347135-2013f780-aec2-11eb-8b5a-ce6446573ebb.gif)
+
+
+
+# 5. Load Certificate Template
+
+Load the template in png,jpeg,jpg or pdf format. PDF format is discouraged because it decreases the fixels of output certificates.
+
+
+![load-certificate-template](https://user-images.githubusercontent.com/53839118/117346673-7f253c80-aec1-11eb-9d89-57b681d1e168.gif)
+
+
+![choose-output-format](https://user-images.githubusercontent.com/53839118/117346966-e3480080-aec1-11eb-8c7f-9ace0d5315eb.gif)
