@@ -9,5 +9,11 @@ saves tons of hardwork.
 ---
 
 # Installation:
-You can download it from [here](https://certificate-generator.github.io/)
-Certification Generator is desktop application for generating mass certificates from template and .CSV file of participants.
+You can download it from [here](https://certificate-generator.github.io/).
+
+# How to use it ?
+
+After you have successfully installed the app you can follow the following steps to generate certificates from csv files.
+
+# 1. Create .csv file:
+Csv file is a file in which column values are separated by comma * , * 
