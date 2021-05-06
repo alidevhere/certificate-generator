@@ -16,3 +16,4 @@ D:\Projects\certificate-generator\bin\Debug\BouncyCastle.Crypto.dll
 D:\Projects\certificate-generator\bin\Debug\itextsharp.dll
 D:\Projects\certificate-generator\bin\Debug\itextsharp.xml
 D:\Projects\certificate-generator\obj\Debug\certificate_generator.Progress.resources
+D:\Projects\certificate-generator\bin\Debug\cs-pdf-to-image.dll

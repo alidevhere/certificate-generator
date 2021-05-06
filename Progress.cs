@@ -60,7 +60,7 @@ namespace certificate_generator
                 FileStream fs = new FileStream(img_path, FileMode.Open, FileAccess.Read);
                 Image image = Image.FromStream(fs);
                 fs.Close();
-
+                
                 Bitmap b = new Bitmap(image);
                 Graphics graphics = Graphics.FromImage(b);
                 msg = "Writing Text on files...";
@@ -128,6 +128,9 @@ namespace certificate_generator
                 progress += 1;
                 worker.ReportProgress(progress);
             }
+
+            // work finished
+            //File.Delete(img_path);
         }
 
         private void bg_worker_ProgressChanged(object sender, ProgressChangedEventArgs e)

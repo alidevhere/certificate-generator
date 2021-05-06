@@ -105,6 +105,7 @@
             // 
             this.tmplt_path_tb.Location = new System.Drawing.Point(23, 270);
             this.tmplt_path_tb.Name = "tmplt_path_tb";
+            this.tmplt_path_tb.ReadOnly = true;
             this.tmplt_path_tb.Size = new System.Drawing.Size(201, 20);
             this.tmplt_path_tb.TabIndex = 7;
             // 
@@ -112,6 +113,7 @@
             // 
             this.output_folder_path.Location = new System.Drawing.Point(23, 100);
             this.output_folder_path.Name = "output_folder_path";
+            this.output_folder_path.ReadOnly = true;
             this.output_folder_path.Size = new System.Drawing.Size(201, 20);
             this.output_folder_path.TabIndex = 8;
             // 
@@ -139,6 +141,7 @@
             // 
             this.csv_txt.Location = new System.Drawing.Point(23, 183);
             this.csv_txt.Name = "csv_txt";
+            this.csv_txt.ReadOnly = true;
             this.csv_txt.Size = new System.Drawing.Size(201, 20);
             this.csv_txt.TabIndex = 13;
             // 
@@ -332,7 +335,7 @@
             this.Controls.Add(this.panel3);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Certificate Generator";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);

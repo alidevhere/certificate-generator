@@ -40,7 +40,6 @@ namespace certificate_generator
         public static List<Tuple<List<Tuple<string, Point,Font,Color>>, string>> map_lbl_to_file(string path, Dictionary<string,Point> location,string f_name_col, Dictionary<string,Tuple<Font,Color>> fonts)
         {
             Console.WriteLine("Mapping....");
-            //List<List<Tuple<string, Point>>> output = new List<List<Tuple<string, Point>>>();
             List<Tuple<List<Tuple<string, Point,Font,Color>>,string>> output = new List<Tuple<List<Tuple<string, Point,Font,Color>>,string>>();
 
             using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(path)), true, ','))
@@ -87,8 +86,7 @@ namespace certificate_generator
             foreach (Label lbl in labels)
             {
                 locations.Add(lbl.Text, lbl.Location);
-                //MessageBox.Show("HERE"+lbl.Text+ lbl.Location.X+ lbl.Location.Y);
-
+             
             }
             return locations;
 
@@ -101,7 +99,6 @@ namespace certificate_generator
             foreach (Label lbl in labels)
             {
                 fonts.Add(lbl.Text, new Tuple<Font,Color>(lbl.Font,lbl.ForeColor));
-                //MessageBox.Show("HERE"+lbl.Text+ lbl.Location.X+ lbl.Location.Y);
 
             }
             return fonts;
