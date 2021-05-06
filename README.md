@@ -43,7 +43,15 @@ Click on Choose Output Folder and browse to the folder where you want all your g
 Load the template in png,jpeg,jpg or pdf format. PDF format is discouraged because it decreases the fixels of output certificates.
 
 
+
+
 ![load-certificate-template](https://user-images.githubusercontent.com/53839118/117346673-7f253c80-aec1-11eb-9d89-57b681d1e168.gif)
 
+
+
+# 6. Load .CSV file:
+
+Load the csv file by clicking on load Data. Loading this file will create dragable labels of text same as headings in csv file.
+Drag these labels to correct locations in template file where you want the text to be printed.
 
 ![choose-output-format](https://user-images.githubusercontent.com/53839118/117346966-e3480080-aec1-11eb-8c7f-9ace0d5315eb.gif)
