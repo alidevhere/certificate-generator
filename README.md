@@ -8,6 +8,11 @@ saves tons of hardwork.
 
 ---
 
+# Why certificate generator:
+[x] - Open Source
+[x] - Easy to use
+[x] - Saves tons of time
+
 # Installation:
 
 You can download installer.
