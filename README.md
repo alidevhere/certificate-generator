@@ -9,7 +9,7 @@ saves tons of hardwork.
 ---
 
 # Installation:
-You can download it from [here](https://certificate-generator.github.io/).
+You can # [download](https://certificate-generator.github.io/) it from here.
 
 # How to use it ?
 
