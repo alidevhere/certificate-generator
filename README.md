@@ -9,9 +9,10 @@ saves tons of hardwork.
 ---
 
 # Why certificate generator:
-- [x] Open Source
+- [x] Free and Open Source
 - [x] Easy to use
 - [x] Saves tons of time
+- [x] Generate mass certificates with flexible GUI 
 
 # Installation:
 
