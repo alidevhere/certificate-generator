@@ -28,5 +28,60 @@ Now you need to give heading to each column of csv file these headings will be u
 
 After successfully Intalling app, Run app.
 
-# 4. Load Certificate Template
+# 4. Choose output folder:
 
+Click on Choose Output Folder and browse to the folder where you want all your generated certificates.
+
+
+
+![choose-output-folder](https://user-images.githubusercontent.com/53839118/117347135-2013f780-aec2-11eb-8b5a-ce6446573ebb.gif)
+
+
+
+# 5. Load Certificate Template
+
+Load the template in png,jpeg,jpg or pdf format. PDF format is discouraged because it decreases the fixels of output certificates.
+
+
+
+
+![load-certificate-template](https://user-images.githubusercontent.com/53839118/117346673-7f253c80-aec1-11eb-9d89-57b681d1e168.gif)
+
+
+
+# 6. Load .CSV file:
+
+Load the csv file by clicking on load Data. 
+
+
+![load-csv-file](https://user-images.githubusercontent.com/53839118/117348203-5ef67d00-aec3-11eb-998a-3ec24c3bfbe4.gif)
+
+
+# 7. Drag the labels to desired location:
+
+Loading this file will create dragable labels of text same as headings in csv file.
+Drag these labels to correct locations in template file where you want the text to be printed. These labels appear on top left 
+corner of picture by default, drag them to your desired location.
+
+
+![arrange-labels](https://user-images.githubusercontent.com/53839118/117348679-ec39d180-aec3-11eb-977f-aeb41c81bce7.gif)
+
+
+
+# 8. Choose Output format of certificates:
+
+Choose output format of generated certificates, generally it is pdf. But it depends on your requirement.
+
+
+![choose-output-format](https://user-images.githubusercontent.com/53839118/117346966-e3480080-aec1-11eb-8c7f-9ace0d5315eb.gif)
+
+
+
+# 9. Click on Create certificates:
+
+Click on create certificates and process will begin all certificates will be created with the text on specified location on template. 
+Out put files are by default saved by numbering 1,2,3.... and so on. but you can also choose any column as output name in this case corresponding
+column value for each row will be used as file name. But be aware !! donot choose a column which is not unique otherwise it can result in unknown behavior. 
+
+
+![se-output-file](https://user-images.githubusercontent.com/53839118/117348921-4175e300-aec4-11eb-92cd-ee731c674c8f.gif)
