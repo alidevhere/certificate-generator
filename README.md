@@ -49,6 +49,7 @@ Click on Choose Output Folder and browse to the folder where you want all your g
 # 5. Load Certificate Template
 
 Load the template in png,jpeg,jpg or pdf format. PDF format is discouraged because it decreases the fixels of output certificates.
+Generally certificate templates are in .doc file but we can easily convert it to image format.You can use any tool online [like](https://www.zamzar.com/convert/doc-to-jpg/).
 
 
 
