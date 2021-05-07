@@ -1,6 +1,6 @@
 # [Certificate Generator Quick Guide](https://programminglover12.github.io/certificate-generator/)
 ***
-
+[Official Site](https://certificate-generator.github.io/)
 ## What's the need of it?
 During panademic Student Communities are conducting online webinars and making our community strong. It is much time consuming 
 to create the certificates for participants. So i created this app to automate this process. It is easy to use and simple and 
