@@ -17,7 +17,7 @@ saves tons of hardwork.
 # Installation:
 
 You can download installer.
-# [download](https://github.com/certificate-generator/certificates-generator-releases/raw/main/Certificate%20Generator.exe)
+# [download](https://certificate-generator.github.io/)
 
 # How to use it ?
 
