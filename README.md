@@ -1,6 +1,6 @@
 # [Certificate Generator Quick Guide](https://programminglover12.github.io/certificate-generator/)
 ***
-
+[Official Site](https://certificate-generator.github.io/)
 ## What's the need of it?
 During panademic Student Communities are conducting online webinars and making our community strong. It is much time consuming 
 to create the certificates for participants. So i created this app to automate this process. It is easy to use and simple and 
@@ -49,6 +49,7 @@ Click on Choose Output Folder and browse to the folder where you want all your g
 # 5. Load Certificate Template
 
 Load the template in png,jpeg,jpg or pdf format. PDF format is discouraged because it decreases the fixels of output certificates.
+Generally certificate templates are in .doc file but we can easily convert it to image format.You can use any tool online [like](https://www.zamzar.com/convert/doc-to-jpg/).
 
 
 
